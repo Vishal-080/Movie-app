@@ -46,17 +46,23 @@
 </html>
 
 <script>
-
+ var div_data = document.getElementById("data");
   
     async function searchMovie() {
-        
+        try{
         let movie = document.getElementById("movie").value;
         let moviedata = await fetch(`http://www.omdbapi.com/?t=${movie}&apikey=f2a42f69&type=movie`)
         // console.log(moviedata);
         let display = await moviedata.json();
+        
        // console.log("display:", display);
+        if (display.Response=="True"){
 
-        var div_data = document.getElementById("data");
+        }
+        else {
+            error();
+        }
+       
         div_data.innerHTML ="";
         let p_title = document.createElement("h1");
         p_title.innerHTML = "Title :-  " + display.Title;  //`${JSON.stringify(display)}`;
@@ -100,6 +106,24 @@
         div_data.append(img,p_title,p_year,p_ratings,p_genre,p_lang,p_plot);
         
         movie = document.getElementById("movie").value="";
-       
+
+        }  catch (err){
+            // let gif= document.createElement("img");
+            // gif.src= "https://c.tenor.com/tDZQ2tXTO_4AAAAM/dungeons-and-dragons-dnd.gif"
+            // div_data.append(gif); 
+            function error(){
+            
+            div_data.innerHTML="";
+            let gif= document.createElement("img");
+            gif.src= "https://c.tenor.com/tDZQ2tXTO_4AAAAM/dungeons-and-dragons-dnd.gif"
+            gif.style.marginTop="50px";
+            div_data.append(gif); 
+            }
+            console.log("err:",error());
+        }
     }
+
+
+
+   
 </script>
